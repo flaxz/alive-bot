@@ -1,3 +1,0 @@
-<center><p>@{{target_account}}! I sent you a slice of <b>$PIZZA</b> on behalf of @{{author_account}}.</p>
-<p>{{ ['Learn more about <b>$PIZZA Token</b> at <a href="https://hive.pizza">hive.pizza</a>']|random }}
-<sub>({{today_gift_count}}/{{max_daily_gifts}})</sub></p></center>
