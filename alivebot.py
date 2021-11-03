@@ -250,7 +250,9 @@ def can_gift(invoker_name, recipient_name):
     return True
 
 
-def hive_posts_stream():
+# Hive Posts Stream and main process
+
+def main():
 
     db_create_tables()
 
@@ -388,4 +390,4 @@ def hive_posts_stream():
 
 if __name__ == '__main__':
 
-    hive_posts_stream()
+    main()
