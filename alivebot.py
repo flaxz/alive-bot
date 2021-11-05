@@ -325,20 +325,20 @@ def main():
                 max_daily_gifts = config['AccessLevel%s' % invoker_level]['MAX_DAILY_GIFTS']
 
                 comment_body = comment_daily_limit_template.render(token_name=TOKEN_NAME, target_account=author_account, max_daily_gifts=max_daily_gifts)
-                message_body = '%s tried to send ALIVE but reached the daily limit.' % (author_account)
+                message_body = '%s tried to send %s but reached the daily limit.' % (author_account, TOKEN_NAME)
 
                 # disabled comments for this path to save RCs
                 print(message_body)
 
             elif invoker_level > 0 and daily_limit_unique_reached(author_account, parent_author,invoker_level):
                 # Check if daily limit for unique tips has been reached
-                message_body = '%s tried to send ALIVE but reached the daily limit.' % (author_account)
+                message_body = '%s tried to send %s but reached the daily limit.' % (author_account, TOKEN_NAME)
                 print(message_body)
 
             else:
                 # Tell the invoker how to gain access to the bot
                 comment_body = comment_fail_template.render(token_name=TOKEN_NAME, target_account=author_account, min_staked=min_staked)
-                message_body = '%s tried to send ALIVE but didnt meet requirements.' % (author_account)
+                message_body = '%s tried to send %s but didnt meet requirements.' % (author_account, TOKEN_NAME)
 
                 post_comment(post, ACCOUNT_NAME, comment_body)
                 print(message_body)
