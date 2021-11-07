@@ -1,4 +1,0 @@
-beem>=0.24.19
-jinja2>=2.11.3
-hiveengine>=0.2.2
-requests>=2.25.0
