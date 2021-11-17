@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="alivebot",
-    version="0.0.1",
+    version="0.0.3",
     author="Erik Gustafsson and Hive Pizza Team",
     author_email="erikegse@gmail.com",
     description="A script to find and react to ALIVE commands in comments",
@@ -24,4 +24,5 @@ setuptools.setup(
     packages=setuptools.find_packages(where="src"),
     include_package_data=True,
     python_requires=">=3.6",
+    zip_safe=False,
 )
