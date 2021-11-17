@@ -5,8 +5,8 @@ After=syslog.target
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/usr/local/bin
-Environment="PATH=/usr/local/bin"
+WorkingDirectory=/usr/local/bin/
+Environment="PATH=/usr/local/bin/"
 ExecStart=/usr/local/bin/run-alivebot.sh
 SyslogIdentifier=alive
 StandardOutput=syslog
