@@ -189,12 +189,14 @@ def get_invoker_level(invoker_name):
     # check how much TOKEN the invoker has
     wallet_token_info = Wallet(invoker_name).get_token(TOKEN_NAME)
 
-    if not wallet_token_info:
-        invoker_delegationsIn + invoker_stake == 0
-    else:
+    try:
         invoker_delegationsIn = float(wallet_token_info['delegationsIn'])
+    except:
+        invoker_delegationsIn = float(0)
+    try:
         invoker_stake = float(wallet_token_info['stake'])
-
+    except:
+        invoker_stake = float(0)
 
     # does invoker meet level 4 requirements?
     min_staked = float(config['AccessLevel4']['MIN_TOKEN_STAKED'])
@@ -220,7 +222,8 @@ def get_invoker_level(invoker_name):
     if invoker_delegationsIn + invoker_stake >= min_staked:
         return 1
 
-    return 0
+    else:
+        return 0
 
 
 def is_block_listed(name):
