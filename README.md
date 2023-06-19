@@ -43,7 +43,7 @@ nano alivebot.config
 Copy your configuration and comment templates to your working directory.
 ```
 cd ~/alivebot
-sudo cp templates /usr/local/bin
+sudo cp -R templates /usr/local/bin
 sudo cp alivebot /usr/local/bin
 sudo cp alivebot.config /usr/local/bin
 sudo cp run-alivebot.sh /usr/local/bin
@@ -71,6 +71,7 @@ sudo systemctl start alivebot.service
 Get status and error messages.
 ```
 sudo systemctl status alivebot.service
+q
 ```
 
 Stop the bot.
