@@ -12,6 +12,7 @@ import time
 import requests
 import sqlite3
 from datetime import date
+from hiveengine.api import Api
 from hiveengine.wallet import Wallet
 
 ### Global configuration
@@ -27,9 +28,12 @@ ENABLE_TRANSFERS = config['HiveEngine']['ENABLE_TRANSFERS'] == 'True'
 ACCOUNT_NAME = config['Global']['ACCOUNT_NAME']
 ACCOUNT_POSTING_KEY = config['Global']['ACCOUNT_POSTING_KEY']
 HIVE_API_NODE = config['Global']['HIVE_API_NODE']
-HIVE = Hive(node=[HIVE_API_NODE], keys=[config['Global']['ACCOUNT_ACTIVE_KEY']])
+HIVE = Hive(node=[HIVE_API_NODE], expiration = 60, keys=[config['Global']['ACCOUNT_ACTIVE_KEY']])
 HIVE.chain_params['chain_id'] = 'beeab0de00000000000000000000000000000000000000000000000000000000'
 beem.instance.set_shared_blockchain_instance(HIVE)
+
+setApi = Api(url = "https://api.primersion.com")
+
 ACCOUNT = Account(ACCOUNT_NAME)
 TOKEN_NAME = config['HiveEngine']['TOKEN_NAME']
 
@@ -187,7 +191,7 @@ def daily_limit_unique_reached(invoker_name, recipient_name, level=1):
 def get_invoker_level(invoker_name):
 
     # check how much TOKEN the invoker has
-    wallet_token_info = Wallet(invoker_name).get_token(TOKEN_NAME)
+    wallet_token_info = Wallet(invoker_name, api=setApi).get_token(TOKEN_NAME)
 
     try:
         invoker_delegationsIn = float(wallet_token_info['delegationsIn'])
@@ -302,6 +306,7 @@ def main():
         message_body = '%s asked to send a tip to %s' % (author_account, parent_author)
 
         try:
+            time.sleep(10)
             post = Comment(reply_identifier)
         except beem.exceptions.ContentDoesNotExistsException:
             print('post not found!')
@@ -351,7 +356,7 @@ def main():
         # check how much TOKEN the bot has
         TOKEN_GIFT_AMOUNT = float(config['HiveEngine']['TOKEN_GIFT_AMOUNT'])
         
-        bot_balance = float(Wallet(ACCOUNT_NAME).get_token(TOKEN_NAME)['balance'])
+        bot_balance = float(Wallet(ACCOUNT_NAME, api=setApi).get_token(TOKEN_NAME)['balance'])
         if bot_balance < TOKEN_GIFT_AMOUNT:
 
             message_body = 'Bot wallet has run out of %s' % TOKEN_NAME
@@ -367,7 +372,7 @@ def main():
         if ENABLE_TRANSFERS:
             print('[*] Transfering %f %s from %s to %s' % (TOKEN_GIFT_AMOUNT, TOKEN_NAME, ACCOUNT_NAME, parent_author))
 
-            wallet = Wallet(ACCOUNT_NAME, blockchain_instance=HIVE)
+            wallet = Wallet(ACCOUNT_NAME, api=setApi, blockchain_instance=HIVE)
             wallet.stake(TOKEN_GIFT_AMOUNT, TOKEN_NAME, receiver=parent_author)
 
             today = str(date.today())
