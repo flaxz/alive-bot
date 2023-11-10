@@ -32,7 +32,7 @@ HIVE = Hive(node=[HIVE_API_NODE], expiration = 60, keys=[config['Global']['ACCOU
 HIVE.chain_params['chain_id'] = 'beeab0de00000000000000000000000000000000000000000000000000000000'
 beem.instance.set_shared_blockchain_instance(HIVE)
 
-setApi = Api(url = "https://api.primersion.com")
+setApi = Api(url = "https://api.primersion.com/")
 
 ACCOUNT = Account(ACCOUNT_NAME)
 TOKEN_NAME = config['HiveEngine']['TOKEN_NAME']
