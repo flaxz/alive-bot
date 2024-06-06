@@ -306,7 +306,7 @@ def main():
         message_body = '%s asked to send a tip to %s' % (author_account, parent_author)
 
         try:
-            time.sleep(10)
+            time.sleep(30)
             post = Comment(reply_identifier)
         except beem.exceptions.ContentDoesNotExistsException:
             print('post not found!')
